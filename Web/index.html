@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+<style media="screen" type="text/css">
+
+ h1 {font-size:800%}
+
+</style>
+        <script src='//code.jquery.com/jquery-1.7.2.min.js'></script>
+        <script src='//localhost:3000/socket.io/socket.io.js'></script>
+        <script>
+            var socket = io.connect('//localhost:3000'); //conecta o server http
+
+          /*  socket.on('welcome', function(data) {
+                $('#messages').append('<li>' + data.message + '</li>');
+
+                //socket.emit('i am client', {data: 'foo!'}); // para emitir uma msg de conexao
+            }); */
+            socket.on('time', function(data) {
+                console.log(data);
+				$('#messages').append('<h1><li>' + data.time + '</li></h1>');
+				$('#messages').html("");
+				$('#messages').append('<h1><li>' + data.time + '</li></h1>');
+
+            });
+            socket.on('error', function() { console.error(arguments) });
+            socket.on('message', function() { console.log(arguments) });
+        </script>
+    </head>
+    <body>
+        <ul id='messages'></ul>
+    </body>
+</html>
